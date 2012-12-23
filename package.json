@@ -1,8 +1,11 @@
 {
   "name": "feedjster",
   "version": "1.0.0",
+  "engines": {
+    "node": "0.8.x"
+  }
   "dependencies": {
-    "request": "2.12.0",
-    "feedparser": "0.10.*"
+    "request": "2.12.x",
+    "feedparser": "0.10.x"
   }
 }
