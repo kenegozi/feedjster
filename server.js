@@ -77,14 +77,27 @@ http.createServer(function (req, res) {
 
     var requestedPath = requestUrl.pathname;
 
-    if (requestedPath !== '/url') {
+    if (requestedPath !== '/feed') {
         res.writeHead(404, { 'Content-Type': 'text/html' });
         res.end('not here!');
         return;
     }
 
+    var appkey = process.env.appkey.toUpperCase();
+    var requestAppkey = requestQuerystring.appkey;
+    if (!requestAppkey) {
+        res.writeHead(401, { 'Content-Type': 'text/html' });
+        res.end('missing appkey');
+        return;
+    }
+    if (requestAppkey.toUpperCase() !== appkey) {
+        res.writeHead(403, { 'Content-Type': 'text/html' });
+        res.end('NO YOU CANNOT!');
+        return;
+    }
+
     var reqObj = {
-        uri: requestQuerystring.feed,
+        uri: requestQuerystring.url,
         headers: JSON.parse(JSON.stringify(req.headers))
     };
     delete reqObj.headers.host;
